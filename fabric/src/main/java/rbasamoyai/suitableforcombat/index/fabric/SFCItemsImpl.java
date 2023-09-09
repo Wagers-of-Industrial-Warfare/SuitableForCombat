@@ -9,8 +9,9 @@ import java.util.function.Supplier;
 public class SFCItemsImpl {
 
 	public static <T extends Item> Supplier<T> register(String id, Supplier<T> sup) {
-		Registry.register(Registry.ITEM, SuitableForCombatMod.resource(id), sup.get());
-		return sup;
+		T item = sup.get();
+		Registry.register(Registry.ITEM, SuitableForCombatMod.resource(id), item);
+		return () -> item;
 	}
 
 }

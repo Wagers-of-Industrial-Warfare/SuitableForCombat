@@ -1,17 +1,17 @@
-package net.examplemod.forge;
+package rbasamoyai.suitableforcombat.forge;
 
-import net.examplemod.ExampleModClient;
+import rbasamoyai.suitableforcombat.SFCModClient;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class ExampleModClientForge {
+public class SFCModClientForge {
 
 	public static void clientInit(IEventBus modBus, IEventBus forgeBus) {
-		modBus.addListener(ExampleModClientForge::onClientSetup);
+		modBus.addListener(SFCModClientForge::onClientSetup);
 	}
 
 	public static void onClientSetup(final FMLClientSetupEvent evt) {
-		ExampleModClient.clientInit();
+		SFCModClient.clientInit();
 	}
 
 }

@@ -1,24 +1,24 @@
 modLoader = "javafml"
 loaderVersion = "[${forge_version},)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/Wagers-of-Industrial-Warfare/SuitableForCombat/issues"
+license = "MIT License"
 
 [[mods]]
-modId = "examplemod"
+modId = "suitableforcombat"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
-description = '''This is an example description! Tell everyone what your mod is about!'''
+displayName = "Suitable For Combat"
+authors = "rbasamoyai"
+description = """An assortment of uniforms from the 1400s to the 1800s"""
 logoFile = "icon.png"
 
-[[dependencies.examplemod]]
+[[dependencies.suitableforcombat]]
 modId = "forge"
 mandatory = true
 versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.suitableforcombat]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version}"

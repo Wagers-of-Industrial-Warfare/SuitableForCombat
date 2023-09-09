@@ -3,6 +3,7 @@ package rbasamoyai.suitableforcombat;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rbasamoyai.suitableforcombat.index.SFCItems;
 
 public class SuitableForCombatMod {
     public static final String MOD_ID = "suitableforcombat";
@@ -11,6 +12,7 @@ public class SuitableForCombatMod {
 
 
     public static void init() {
+        SFCItems.register();
     }
 
     public static ResourceLocation resource(String path) {

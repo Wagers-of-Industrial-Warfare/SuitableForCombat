@@ -11,7 +11,9 @@ public class SFCModClientForge {
 	}
 
 	public static void onClientSetup(final FMLClientSetupEvent evt) {
-		SFCModClient.clientInit();
+		evt.enqueueWork(() -> {
+			SFCModClient.clientInit();
+		});
 	}
 
 }

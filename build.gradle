@@ -1,0 +1,107 @@
+plugins {
+    id "architectury-plugin" version "3.+"
+    id "dev.architectury.loom" version "1.+" apply false
+    id "io.github.juuxel.loom-vineflower" version "1.+" apply false // Vineflower
+    id "io.github.p03w.machete" version "1.+" // automatic jar compressing on build
+}
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}
+
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine "git", "rev-parse", "--short", "HEAD"
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+boolean ci = System.getenv("CI") != null ? System.getenv("CI").toBoolean() : false
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply plugin: "io.github.juuxel.loom-vineflower"
+    apply plugin: "maven-publish"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
+        maven { url = "https://maven.blamejared.com" } // JEI
+        maven { url = "https://maven.parchmentmc.org" } // Parchment mappings
+        maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
+        maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${minecraft_version}"
+        // layered mappings - Mojmap names, parchment and QM docs and parameters
+        mappings(loom.layered {
+            it.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${qm_version}:intermediary-v2")
+            it.parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
+            it.officialMojangMappings { nameSyntheticMembers = false }
+        })
+
+        // see each subproject for dependencies.
+    }
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = rootProject.archives_base_name
+                version = "${mod_version}-${getGitHash()}+${minecraft_version}-${project.name}"
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/wagers-of-industrial-warfare/multiloadertemplate"
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                    password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+            maven {
+                name = "realRobotixMaven"
+                url = "https://maven.realrobotix.me/multiloadertemplate"
+                credentials(PasswordCredentials)
+            }
+        }
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+
+    base {
+        archivesName.set(rootProject.archives_base_name)
+        group = rootProject.maven_group
+    }
+
+    // Formats the mod version to include the loader, Minecraft version, and build number (if present)
+    // example: 1.0.0+fabric-1.18.2-100
+
+    version = "${mod_version}-${getGitHash()}+${minecraft_version}-${project.name}"
+
+    repositories {
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    machete {
+        // disable machete locally for faster builds
+        enabled = ci
+    }
+}

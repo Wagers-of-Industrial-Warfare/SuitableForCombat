@@ -12,4 +12,4 @@ include("common")
 include("fabric")
 include("forge")
 
-rootProject.name = "industrialwarfare-multiloader-template"
+rootProject.name = "SuitableForCombat"

@@ -64,8 +64,8 @@ processResources {
 loom {
     forge {
         mixinConfig(
-                "examplemod-common.mixins.json",
-                "examplemod.mixins.json"
+                "suitableforcombat-common.mixins.json",
+                "suitableforcombat.mixins.json"
         )
     }
 }

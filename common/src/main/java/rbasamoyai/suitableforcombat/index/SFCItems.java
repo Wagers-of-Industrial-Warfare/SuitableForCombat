@@ -14,6 +14,8 @@ import rbasamoyai.suitableforcombat.content.items.SFCDyeableArmorItem;
 public class SFCItems {
 
 	public static final Supplier<ArmorItem>
+		CAVALRY_POT_HELMET = register("cavalry_pot_helmet", () -> new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.HEAD, new Item.Properties()
+			.tab(SuitableForCombatMod.GROUP))),
 		PITH_HELMET = register("pith_helmet", () -> new ArmorItem(SFCArmorMaterials.WOOD, EquipmentSlot.HEAD, new Item.Properties()
 			.tab(SuitableForCombatMod.GROUP)));
 

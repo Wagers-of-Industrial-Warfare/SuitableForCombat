@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import rbasamoyai.suitableforcombat.content.BasicHumanoidArmorRenderer;
 import rbasamoyai.suitableforcombat.content.CustomHumanoidArmorRenderer;
+import rbasamoyai.suitableforcombat.content.items.hats.CavalryPotHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.DragoonHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PickelhaubeModel;
@@ -34,6 +35,16 @@ public class SFCModClient {
 	private static final Map<Item, CustomHumanoidArmorRenderer> ARMOR_MODEL_PROVIDERS = new HashMap<>();
 
 	public static void clientInit() {
+		registerArmorRenderer(SFCItems.CAVALRY_POT_HELMET.get(), new BasicHumanoidArmorRenderer() {
+			@Override
+			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+				return new CavalryPotHelmetModel(bakeRoot(SFCModelLayers.CAVALRY_POT_HELMET));
+			}
+			@Override
+			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+				return SuitableForCombatMod.resource("textures/armor/cavalry_pot_helmet.png");
+			}
+		});
 		registerArmorRenderer(SFCItems.DRAGOON_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
 			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
@@ -97,8 +108,9 @@ public class SFCModClient {
 	}
 
 	public static void registerLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> cons) {
-		cons.accept(SFCModelLayers.KEPI, KepiModel::createLayer);
+		cons.accept(SFCModelLayers.CAVALRY_POT_HELMET, CavalryPotHelmetModel::createLayer);
 		cons.accept(SFCModelLayers.DRAGOON_HELMET, DragoonHelmetModel::createLayer);
+		cons.accept(SFCModelLayers.KEPI, KepiModel::createLayer);
 		cons.accept(SFCModelLayers.PICKELHAUBE, PickelhaubeModel::createLayer);
 		cons.accept(SFCModelLayers.PITH_HELMET, PithHelmetModel::createLayer);
 	}

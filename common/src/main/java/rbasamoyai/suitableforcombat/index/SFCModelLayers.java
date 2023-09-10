@@ -5,6 +5,7 @@ import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 
 public class SFCModelLayers {
 
+	public static final ModelLayerLocation CAVALRY_POT_HELMET = create("cavalry_pot_helmet");
 	public static final ModelLayerLocation DRAGOON_HELMET = create("dragoon_helmet");
 	public static final ModelLayerLocation KEPI = create("kepi");
 	public static final ModelLayerLocation PICKELHAUBE = create("pickelhaube");

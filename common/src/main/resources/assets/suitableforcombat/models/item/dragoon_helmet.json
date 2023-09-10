@@ -1,0 +1,15 @@
+{
+  "parent": "suitableforcombat:item/dragoon_helmet_bronze",
+  "textures": {
+    "layer0": "suitableforcombat:item/dragoon_helmet",
+    "layer1": "suitableforcombat:item/dragoon_helmet_overlay"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:custom_model_data": 1.0
+      },
+      "model": "suitableforcombat:item/dragoon_helmet_gold"
+    }
+  ]
+}

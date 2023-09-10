@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "suitableforcombat:item/kepi",
+    "layer1": "suitableforcombat:item/kepi_overlay"
+  }
+}

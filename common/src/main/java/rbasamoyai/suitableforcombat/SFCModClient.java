@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,10 +15,14 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import rbasamoyai.suitableforcombat.content.BasicHumanoidArmorRenderer;
 import rbasamoyai.suitableforcombat.content.CustomHumanoidArmorRenderer;
+import rbasamoyai.suitableforcombat.content.items.hats.DragoonHelmetModel;
+import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
+import rbasamoyai.suitableforcombat.content.items.hats.PickelhaubeModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PithHelmetModel;
 import rbasamoyai.suitableforcombat.index.SFCItems;
 import rbasamoyai.suitableforcombat.index.SFCModelLayers;
@@ -29,6 +34,31 @@ public class SFCModClient {
 	private static final Map<Item, CustomHumanoidArmorRenderer> ARMOR_MODEL_PROVIDERS = new HashMap<>();
 
 	public static void clientInit() {
+		registerArmorRenderer(SFCItems.DRAGOON_HELMET.get(), new BasicHumanoidArmorRenderer() {
+			@Override
+			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+				return new DragoonHelmetModel(bakeRoot(SFCModelLayers.DRAGOON_HELMET));
+			}
+			@Override
+			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+				String suf = "";
+				if (overlay != null) {
+					int modelData = stack.getOrCreateTag().getInt("CustomModelData");
+					suf = String.format("_%s%s", overlay, modelData == 0 ? "" : Integer.toString(modelData));
+				}
+				return SuitableForCombatMod.resource("textures/armor/dragoon_helmet%s.png".formatted(overlay == null ? "" : suf));
+			}
+		});
+		registerArmorRenderer(SFCItems.KEPI.get(), new BasicHumanoidArmorRenderer() {
+			@Override
+			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+				return new PithHelmetModel(bakeRoot(SFCModelLayers.KEPI));
+			}
+			@Override
+			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+				return SuitableForCombatMod.resource("textures/armor/kepi%s.png".formatted(overlay == null ? "" : "_" + overlay));
+			}
+		});
 		registerArmorRenderer(SFCItems.PITH_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
 			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
@@ -39,9 +69,37 @@ public class SFCModClient {
 				return SuitableForCombatMod.resource("textures/armor/pith_helmet.png");
 			}
 		});
+		registerArmorRenderer(SFCItems.PICKELHAUBE.get(), new BasicHumanoidArmorRenderer() {
+			@Override
+			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+				return new PickelhaubeModel(bakeRoot(SFCModelLayers.PICKELHAUBE));
+			}
+			@Override
+			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+				String suf = "";
+				if (overlay != null) {
+					int modelData = stack.getOrCreateTag().getInt("CustomModelData");
+					suf = String.format("_%s%s", overlay, modelData == 0 ? "" : Integer.toString(modelData));
+				}
+				return SuitableForCombatMod.resource("textures/armor/pickelhaube%s.png".formatted(overlay == null ? "" : suf));
+			}
+		});
+	}
+
+	public static void registerItemColor(BiConsumer<ItemColor, Item> cons) {
+		cons.accept(SFCModClient::simpleColor, SFCItems.DRAGOON_HELMET.get());
+		cons.accept(SFCModClient::simpleColor, SFCItems.KEPI.get());
+		cons.accept(SFCModClient::simpleColor, SFCItems.PICKELHAUBE.get());
+	}
+
+	private static int simpleColor(ItemStack stack, int layer) {
+		return layer > 0 ? -1 : ((DyeableArmorItem) stack.getItem()).getColor(stack);
 	}
 
 	public static void registerLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> cons) {
+		cons.accept(SFCModelLayers.KEPI, KepiModel::createLayer);
+		cons.accept(SFCModelLayers.DRAGOON_HELMET, DragoonHelmetModel::createLayer);
+		cons.accept(SFCModelLayers.PICKELHAUBE, PickelhaubeModel::createLayer);
 		cons.accept(SFCModelLayers.PITH_HELMET, PithHelmetModel::createLayer);
 	}
 

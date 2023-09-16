@@ -25,6 +25,7 @@ configurations {
 }
 
 repositories {
+	maven { url = "https://cursemaven.com" }
     maven { // Registrate Forge
         url = "https://maven.tterrag.com/"
         content {
@@ -45,6 +46,9 @@ dependencies {
     modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${devauth_forge_version}")
     // if you would like to add integration with JEI, uncomment this line.
 //    modCompileOnly("mezz.jei:jei-${minecraft_version}-forge-api:${jei_forge_version}")
+
+	modRuntimeOnly("curse.maven:free-cam-557076:${freecam_forge_file}")
+	modRuntimeOnly("curse.maven:cloth-config-348521:${cloth_config_forge_file}")
 }
 
 processResources {

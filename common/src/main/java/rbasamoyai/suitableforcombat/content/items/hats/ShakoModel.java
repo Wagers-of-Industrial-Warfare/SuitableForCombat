@@ -18,8 +18,8 @@ public class ShakoModel extends BasicHatModel {
 		PartDefinition part = mesh.getRoot();
 		PartDefinition head = part.getChild("head");
 		head.addOrReplaceChild("helmet", CubeListBuilder.create()
-			.texOffs(0, 32).addBox(-4.0F, -14.0F, -4.0F, 8.0F, 14.0F, 8.0F, new CubeDeformation(0.0F))
-			.texOffs(0, 54).addBox(-4.0F, -5.0F, -7.0F, 8.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0f, 0.5f, 0.0f));
+			.texOffs(0, 32).addBox(-4.0F, -12.0F, -4.0F, 8.0F, 12.0F, 8.0F, new CubeDeformation(0.0F))
+			.texOffs(0, 52).addBox(-4.0F, -5.0F, -7.0F, 8.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0f, 0.5f, 0.0f));
 		return LayerDefinition.create(mesh, 64, 64);
 	}
 

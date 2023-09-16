@@ -13,7 +13,7 @@ public class ModGroup extends CreativeModeTab {
 
 	@Override
 	public ItemStack makeIcon() {
-		return new ItemStack(SFCItems.PITH_HELMET.get());
+		return new ItemStack(SFCItems.SHAKO.get());
 	}
 
 	@ExpectPlatform public static CreativeModeTab create() { throw new AssertionError(); }

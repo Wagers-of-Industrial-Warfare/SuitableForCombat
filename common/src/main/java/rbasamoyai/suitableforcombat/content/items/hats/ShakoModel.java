@@ -9,21 +9,17 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class PithHelmetModel extends BasicHatModel {
+public class ShakoModel extends BasicHatModel {
 
-	public PithHelmetModel(ModelPart root) {
-		super(root);
-	}
+	public ShakoModel(ModelPart root) { super(root); }
 
 	public static LayerDefinition createLayer() {
 		MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0f);
 		PartDefinition part = mesh.getRoot();
 		PartDefinition head = part.getChild("head");
 		head.addOrReplaceChild("helmet", CubeListBuilder.create()
-				.texOffs(0, 44).addBox(-4.0F, -7.0F, -4.0F, 8.0F, 8.0F, 8.0F, CubeDeformation.NONE)
-				.texOffs(0, 32).addBox(-4.5F, -4.0F, -5.0F, 9.0F, 2.0F, 10.0F, CubeDeformation.NONE)
-				.texOffs(32, 44).addBox(-3.0F, -9.0F, -3.0F, 6.0F, 2.0F, 6.0F, CubeDeformation.NONE)
-				.texOffs(0, 32).addBox(-1.0F, -9.5F, -1.0F, 2.0F, 1.0F, 2.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(0.0f, 0.0f, -0.25f, -0.0873f, 0.0f, 0.0f));
+			.texOffs(0, 32).addBox(-4.0F, -14.0F, -4.0F, 8.0F, 14.0F, 8.0F, new CubeDeformation(0.0F))
+			.texOffs(0, 54).addBox(-4.0F, -5.0F, -7.0F, 8.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0f, 0.5f, 0.0f));
 		return LayerDefinition.create(mesh, 64, 64);
 	}
 

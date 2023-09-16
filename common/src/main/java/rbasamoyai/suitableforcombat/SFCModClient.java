@@ -25,6 +25,7 @@ import rbasamoyai.suitableforcombat.content.items.hats.DragoonHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PickelhaubeModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PithHelmetModel;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoModel;
 import rbasamoyai.suitableforcombat.index.SFCItems;
 import rbasamoyai.suitableforcombat.index.SFCModelLayers;
 
@@ -95,6 +96,17 @@ public class SFCModClient {
 				return SuitableForCombatMod.resource("textures/armor/pickelhaube%s.png".formatted(overlay == null ? "" : suf));
 			}
 		});
+		registerArmorRenderer(SFCItems.SHAKO.get(), new BasicHumanoidArmorRenderer() {
+			@Override
+			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+				return new ShakoModel(bakeRoot(SFCModelLayers.SHAKO));
+			}
+
+			@Override
+			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @org.jetbrains.annotations.Nullable String overlay) {
+				return SuitableForCombatMod.resource("textures/armor/shako.png");
+			}
+		});
 	}
 
 	public static void registerItemColor(BiConsumer<ItemColor, Item> cons) {
@@ -113,6 +125,7 @@ public class SFCModClient {
 		cons.accept(SFCModelLayers.KEPI, KepiModel::createLayer);
 		cons.accept(SFCModelLayers.PICKELHAUBE, PickelhaubeModel::createLayer);
 		cons.accept(SFCModelLayers.PITH_HELMET, PithHelmetModel::createLayer);
+		cons.accept(SFCModelLayers.SHAKO, ShakoModel::createLayer);
 	}
 
 	public static void registerArmorRenderer(Item item, CustomHumanoidArmorRenderer renderer) {

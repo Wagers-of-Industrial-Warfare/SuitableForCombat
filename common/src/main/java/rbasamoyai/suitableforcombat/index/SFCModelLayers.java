@@ -10,6 +10,7 @@ public class SFCModelLayers {
 	public static final ModelLayerLocation KEPI = create("kepi");
 	public static final ModelLayerLocation PICKELHAUBE = create("pickelhaube");
 	public static final ModelLayerLocation PITH_HELMET = create("pith_helmet");
+	public static final ModelLayerLocation SHAKO = create("shako");
 
 	private static ModelLayerLocation create(String name) {
 		return create(name, "main");

@@ -22,7 +22,7 @@ public class CavalryPotHelmetModel extends BasicHatModel {
 		PartDefinition helmet = head.addOrReplaceChild("helmet", CubeListBuilder.create()
 			.texOffs(0, 32).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
 			.texOffs(23, 47).addBox(-4.5F, -5.0F, -7.0F, 9.0F, 6.0F, 11.0F, new CubeDeformation(0.0F))
-			.texOffs(32, 32).addBox(-3.0F, -9.0F, -3.0F, 6.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+			.texOffs(32, 32).addBox(-3.0F, -9.0F, -3.0F, 6.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.ZERO);
 		helmet.addOrReplaceChild("tail", CubeListBuilder.create()
 			.texOffs(0, 48).addBox(-4.5F, 0.0F, -1.0F, 9.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.0F, 4.0F, 0.7854F, 0.0F, 0.0F));
 		return LayerDefinition.create(mesh, 64, 64);

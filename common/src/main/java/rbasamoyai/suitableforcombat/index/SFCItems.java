@@ -17,6 +17,8 @@ public class SFCItems {
 		CAVALRY_POT_HELMET = register("cavalry_pot_helmet", () -> new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.HEAD, new Item.Properties()
 			.tab(SuitableForCombatMod.GROUP))),
 		PITH_HELMET = register("pith_helmet", () -> new ArmorItem(SFCArmorMaterials.WOOD, EquipmentSlot.HEAD, new Item.Properties()
+			.tab(SuitableForCombatMod.GROUP))),
+		SHAKO = register("shako", () -> new ArmorItem(SFCArmorMaterials.WOOL, EquipmentSlot.HEAD, new Item.Properties()
 			.tab(SuitableForCombatMod.GROUP)));
 
 	public static final Supplier<SFCDyeableArmorItem>

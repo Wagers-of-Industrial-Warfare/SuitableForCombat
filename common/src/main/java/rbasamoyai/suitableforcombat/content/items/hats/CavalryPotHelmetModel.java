@@ -1,15 +1,15 @@
 package rbasamoyai.suitableforcombat.content.items.hats;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
-public class CavalryPotHelmetModel extends HumanoidModel<LivingEntity> {
+public class CavalryPotHelmetModel extends BasicHatModel {
 
 	public CavalryPotHelmetModel(ModelPart root) {
 		super(root);
@@ -26,19 +26,6 @@ public class CavalryPotHelmetModel extends HumanoidModel<LivingEntity> {
 		helmet.addOrReplaceChild("tail", CubeListBuilder.create()
 			.texOffs(0, 48).addBox(-4.5F, 0.0F, -1.0F, 9.0F, 5.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.0F, 4.0F, 0.7854F, 0.0F, 0.0F));
 		return LayerDefinition.create(mesh, 64, 64);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		poseStack.pushPose();
-		if (this.young) {
-			poseStack.translate(0.0f, -0.1875f, 0.0f);
-		}
-		poseStack.translate(this.head.x / 16.0f, this.head.y / 16.0f, this.head.z / 16.0f);
-		poseStack.scale(1.25f, 1.25f, 1.25f);
-		poseStack.translate(-this.head.x / 16.0f, -this.head.y / 16.0f, -this.head.z / 16.0f);
-		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		poseStack.popPose();
 	}
 
 }

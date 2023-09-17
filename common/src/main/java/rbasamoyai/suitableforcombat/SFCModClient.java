@@ -5,17 +5,22 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.DyeableArmorItem;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import rbasamoyai.suitableforcombat.content.BasicHumanoidArmorRenderer;
@@ -25,17 +30,25 @@ import rbasamoyai.suitableforcombat.content.items.hats.DragoonHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PickelhaubeModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PithHelmetModel;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoArmorRenderer;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoItemRenderer;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoModel;
 import rbasamoyai.suitableforcombat.index.SFCItems;
 import rbasamoyai.suitableforcombat.index.SFCModelLayers;
-
-import javax.annotation.Nullable;
+import rbasamoyai.suitableforcombat.index.SFCPartialModels;
 
 public class SFCModClient {
 
 	private static final Map<Item, CustomHumanoidArmorRenderer> ARMOR_MODEL_PROVIDERS = new HashMap<>();
+	private static final Map<Item, BlockEntityWithoutLevelRenderer> ITEM_RENDERERS = new HashMap<>();
 
 	public static void clientInit() {
+		Minecraft mc = Minecraft.getInstance();
+		BlockEntityRenderDispatcher brd = mc.getBlockEntityRenderDispatcher();
+		EntityModelSet models = mc.getEntityModels();
+
+		SFCPartialModels.init();
+
 		registerArmorRenderer(SFCItems.CAVALRY_POT_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
 			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
@@ -96,27 +109,20 @@ public class SFCModClient {
 				return SuitableForCombatMod.resource("textures/armor/pickelhaube%s.png".formatted(overlay == null ? "" : suf));
 			}
 		});
-		registerArmorRenderer(SFCItems.SHAKO.get(), new BasicHumanoidArmorRenderer() {
-			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
-				return new ShakoModel(bakeRoot(SFCModelLayers.SHAKO));
-			}
-
-			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @org.jetbrains.annotations.Nullable String overlay) {
-				return SuitableForCombatMod.resource("textures/armor/shako.png");
-			}
-		});
+		registerArmorRenderer(SFCItems.SHAKO.get(), new ShakoArmorRenderer());
+		registerCustomItemOverlayRenderer(SFCItems.SHAKO.get(), new ShakoItemRenderer(brd, models));
 	}
 
 	public static void registerItemColor(BiConsumer<ItemColor, Item> cons) {
 		cons.accept(SFCModClient::simpleColor, SFCItems.DRAGOON_HELMET.get());
 		cons.accept(SFCModClient::simpleColor, SFCItems.KEPI.get());
 		cons.accept(SFCModClient::simpleColor, SFCItems.PICKELHAUBE.get());
+
+		cons.accept(SFCModClient::simpleColor, SFCItems.HAT_BAND.get());
 	}
 
 	private static int simpleColor(ItemStack stack, int layer) {
-		return layer > 0 ? -1 : ((DyeableArmorItem) stack.getItem()).getColor(stack);
+		return layer > 0 ? -1 : ((DyeableLeatherItem) stack.getItem()).getColor(stack);
 	}
 
 	public static void registerLayers(BiConsumer<ModelLayerLocation, Supplier<LayerDefinition>> cons) {
@@ -139,6 +145,15 @@ public class SFCModClient {
 		return Minecraft.getInstance().getEntityModels().bakeLayer(loc);
 	}
 
-	@Nullable public static CustomHumanoidArmorRenderer getRenderer(Item item) { return ARMOR_MODEL_PROVIDERS.get(item); }
+	@Nullable public static CustomHumanoidArmorRenderer getArmorRenderer(Item item) { return ARMOR_MODEL_PROVIDERS.get(item); }
+
+	public static void registerCustomItemOverlayRenderer(Item item, BlockEntityWithoutLevelRenderer renderer) {
+		if (ITEM_RENDERERS.containsKey(item)) {
+			throw new IllegalStateException("Item %s already has a registered custom item renderer".formatted(Registry.ITEM.getKey(item)));
+		}
+		ITEM_RENDERERS.put(item, renderer);
+	}
+
+	@Nullable public static BlockEntityWithoutLevelRenderer getCustomItemOverlayRenderer(Item item) { return ITEM_RENDERERS.get(item); }
 
 }

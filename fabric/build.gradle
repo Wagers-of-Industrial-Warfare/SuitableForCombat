@@ -40,7 +40,7 @@ dependencies {
     modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${devauth_fabric_version}")
 
-//    modApi(include("io.github.fabricators_of_create:Porting-Lib:${porting_lib_version}+${minecraft_version}")) // Porting Lib
+    modApi(include("io.github.fabricators_of_create:Porting-Lib:${porting_lib_version}+${minecraft_version}")) // Porting Lib
 
 //    modApi(include("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}")) { // Registrate Fabric
 //        exclude(group: "io.github.fabricators_of_create") // avoid duplicate Porting Lib

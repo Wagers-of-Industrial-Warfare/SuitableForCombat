@@ -28,7 +28,7 @@ public abstract class HumanoidArmorLayerMixin extends RenderLayer {
 	private void suitableforcombat$render(PoseStack poseStack, MultiBufferSource buffer, LivingEntity livingEntity,
 										  EquipmentSlot slot, int light, HumanoidModel model, CallbackInfo ci) {
 		ItemStack armorItem = livingEntity.getItemBySlot(slot);
-		CustomHumanoidArmorRenderer custom = SFCModClient.getRenderer(armorItem.getItem());
+		CustomHumanoidArmorRenderer custom = SFCModClient.getArmorRenderer(armorItem.getItem());
 		if (custom != null) {
 			custom.render(armorItem, poseStack, buffer, livingEntity, slot, light, (HumanoidModel<?>) this.getParentModel());
 			ci.cancel();

@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 import rbasamoyai.suitableforcombat.content.SFCArmorMaterials;
 import rbasamoyai.suitableforcombat.content.items.SFCDyeableArmorItem;
+import rbasamoyai.suitableforcombat.content.items.ornaments.DyeableOrnamentItem;
 
 public class SFCItems {
 
@@ -28,6 +29,10 @@ public class SFCItems {
 			.tab(SuitableForCombatMod.GROUP), 16777215)),
 		PICKELHAUBE = register("pickelhaube", () -> new SFCDyeableArmorItem(ArmorMaterials.LEATHER, EquipmentSlot.HEAD, new Item.Properties()
 			.tab(SuitableForCombatMod.GROUP), 1710619));
+
+	public static final Supplier<DyeableOrnamentItem>
+		HAT_BAND = register("hat_band", () -> new DyeableOrnamentItem(new Item.Properties()
+			.tab(SuitableForCombatMod.GROUP)));
 
 	public static void register() {}
 

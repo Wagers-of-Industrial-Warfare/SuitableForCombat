@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "suitableforcombat:item/hat_band",
+    "layer1": "suitableforcombat:item/no_overlay"
+  }
+}

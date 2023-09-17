@@ -4,7 +4,8 @@
   "package": "rbasamoyai.suitableforcombat.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "HumanoidArmorLayerMixin"
+    "HumanoidArmorLayerMixin",
+    "ItemRendererMixin"
   ],
   "mixins": [
   ],

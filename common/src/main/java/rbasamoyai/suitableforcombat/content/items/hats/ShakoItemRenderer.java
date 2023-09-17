@@ -18,6 +18,8 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoItem.Ornament;
+import rbasamoyai.suitableforcombat.index.SFCItems;
 import rbasamoyai.suitableforcombat.index.SFCPartialModels;
 
 public class ShakoItemRenderer extends BlockEntityWithoutLevelRenderer {
@@ -29,10 +31,19 @@ public class ShakoItemRenderer extends BlockEntityWithoutLevelRenderer {
 	@Override
 	public void renderByItem(ItemStack stack, TransformType transformType, PoseStack poseStack, MultiBufferSource buffer,
 							 int packedLight, int packedOverlay) {
+		if (!(stack.getItem() instanceof ShakoItem shako)) return;
+
 		RenderType renderType = ItemBlockRenderTypes.getRenderType(stack, true);
 		VertexConsumer vcons = ItemRenderer.getFoilBufferDirect(buffer, renderType, true, stack.hasFoil());
 
-		this.renderModelLists(SFCPartialModels.SHAKO_UPPER_BAND.get(), packedLight, packedOverlay, poseStack, vcons, 1, 0, 0);
+		ItemStack upperBand = shako.getOrnament(stack, Ornament.UPPER_BAND);
+		if (upperBand.is(SFCItems.HAT_BAND.get())) {
+			int i = SFCItems.HAT_BAND.get().getColor(upperBand);
+			float r = (float)(i >> 16 & 0xFF) / 255f;
+			float g = (float)(i >> 8 & 0xFF) / 255f;
+			float b = (float)(i & 0xFF) / 255f;
+			this.renderModelLists(SFCPartialModels.SHAKO_UPPER_BAND.get(), packedLight, packedOverlay, poseStack, vcons, r, g, b);
+		}
 	}
 
 	public void renderModelLists(BakedModel pModel, int pCombinedLight, int pCombinedOverlay, PoseStack pMatrixStack,

@@ -49,6 +49,9 @@ public class SFCItems {
 		HAT_BAND = register("hat_band", () -> new DyeableOrnamentItem(new Item.Properties()
 			.tab(SuitableForCombatMod.GROUP)));
 
+	public static final Supplier<Item>
+		GILDING = register("gilding", () -> new Item(new Item.Properties().tab(SuitableForCombatMod.GROUP)));
+
 	public static void register() {}
 
 	@ExpectPlatform public static <T extends Item> Supplier<T> register(String id, Supplier<T> sup) { throw new AssertionError(); }

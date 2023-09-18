@@ -33,11 +33,11 @@ public class ShakoItem extends ArmorItem implements SupportsOrnaments {
 		UPPER_BAND,
 		LOWER_BAND,
 		MIDDLE_BANDS,
-		EMBLEM,
-		STRAP,
 		VISOR,
-		PLUME,
+		PLATE,
+		STRAP,
 		ROUNDEL,
+		PLUME,
 		CORDS;
 
 		public static final Set<Ornament> SET = ImmutableSet.copyOf(EnumSet.allOf(Ornament.class));

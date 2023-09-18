@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "suitableforcombat:item/ornament_overlays/shako_gilded_middle_bands"
+  }
+}

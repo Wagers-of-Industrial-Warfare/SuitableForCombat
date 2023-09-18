@@ -24,7 +24,10 @@ public class ShakoItem extends ArmorItem implements SupportsOrnaments {
 	@Override
 	public boolean supportsOrnament(ItemStack armor, OrnamentType type, ItemStack ornament) {
 		if (type == Ornament.UPPER_BAND || type == Ornament.LOWER_BAND || type == Ornament.MIDDLE_BANDS || type == Ornament.VISOR) {
-			return ornament.is(SFCItems.HAT_BAND.get());
+			return ornament.is(SFCItems.HAT_BAND.get()) || ornament.is(SFCItems.GILDING.get());
+		}
+		if (type == Ornament.CORD) {
+			return ornament.is(SFCItems.CORD.get());
 		}
 		return false;
 	}
@@ -38,7 +41,7 @@ public class ShakoItem extends ArmorItem implements SupportsOrnaments {
 		STRAP,
 		ROUNDEL,
 		PLUME,
-		CORDS;
+		CORD;
 
 		public static final Set<Ornament> SET = ImmutableSet.copyOf(EnumSet.allOf(Ornament.class));
 

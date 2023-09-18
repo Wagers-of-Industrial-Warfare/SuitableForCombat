@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import rbasamoyai.suitableforcombat.SFCModClient;
 import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 import rbasamoyai.suitableforcombat.content.BasicHumanoidArmorRenderer;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoItem.Ornament;
 import rbasamoyai.suitableforcombat.content.items.ornaments.DyeableOrnamentItem;
 import rbasamoyai.suitableforcombat.index.SFCItems;
 import rbasamoyai.suitableforcombat.index.SFCModelLayers;
@@ -37,7 +38,7 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 		DyeableOrnamentItem HAT_BAND = SFCItems.HAT_BAND.get();
 		Item GILDING = SFCItems.GILDING.get();
 
-		ItemStack upperBand = shako.getOrnament(itemStack, ShakoItem.Ornament.UPPER_BAND);
+		ItemStack upperBand = shako.getOrnament(itemStack, Ornament.UPPER_BAND);
 		if (upperBand.is(HAT_BAND)) {
 			int i = HAT_BAND.getColor(upperBand);
 			list.add(new SubArmorLayer(
@@ -52,7 +53,7 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_gilded_upper_band.png"),
 				false, 0, null));
 		}
-		ItemStack middleBand = shako.getOrnament(itemStack, ShakoItem.Ornament.MIDDLE_BANDS);
+		ItemStack middleBand = shako.getOrnament(itemStack, Ornament.MIDDLE_BANDS);
 		if (middleBand.is(HAT_BAND)) {
 			int i = HAT_BAND.getColor(middleBand);
 			list.add(new SubArmorLayer(
@@ -67,7 +68,7 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_gilded_middle_bands.png"),
 				false, 0, null));
 		}
-		ItemStack lowerBand = shako.getOrnament(itemStack, ShakoItem.Ornament.LOWER_BAND);
+		ItemStack lowerBand = shako.getOrnament(itemStack, Ornament.LOWER_BAND);
 		if (lowerBand.is(HAT_BAND)) {
 			int i = HAT_BAND.getColor(lowerBand);
 			list.add(new SubArmorLayer(
@@ -82,7 +83,7 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_gilded_lower_band.png"),
 				false, 0, null));
 		}
-		ItemStack visor = shako.getOrnament(itemStack, ShakoItem.Ornament.VISOR);
+		ItemStack visor = shako.getOrnament(itemStack, Ornament.VISOR);
 		if (visor.is(HAT_BAND)) {
 			int i = HAT_BAND.getColor(visor);
 			list.add(new SubArmorLayer(
@@ -96,6 +97,17 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 				new ShakoModel(SFCModClient.bakeRoot(SFCModelLayers.SHAKO)),
 				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_gilded_visor.png"),
 				false, 0, null));
+		}
+		ItemStack cord = shako.getOrnament(itemStack, Ornament.CORD);
+		if (cord.is(SFCItems.CORD.get())) {
+			int i = SFCItems.CORD.get().getColor(cord);
+			ShakoCordModel cordModel = new ShakoCordModel(SFCModClient.bakeRoot(SFCModelLayers.SHAKO_CORD), entity);
+			list.add(new SubArmorLayer(
+				cordModel,
+				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_cord.png"),
+				true,
+				i,
+				SuitableForCombatMod.resource("textures/armor/ornament_overlays/no_overlay.png")));
 		}
 	}
 

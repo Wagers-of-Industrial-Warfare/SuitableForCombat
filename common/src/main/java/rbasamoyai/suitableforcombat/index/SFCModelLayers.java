@@ -5,12 +5,14 @@ import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 
 public class SFCModelLayers {
 
-	public static final ModelLayerLocation CAVALRY_POT_HELMET = create("cavalry_pot_helmet");
-	public static final ModelLayerLocation DRAGOON_HELMET = create("dragoon_helmet");
-	public static final ModelLayerLocation KEPI = create("kepi");
-	public static final ModelLayerLocation PICKELHAUBE = create("pickelhaube");
-	public static final ModelLayerLocation PITH_HELMET = create("pith_helmet");
-	public static final ModelLayerLocation SHAKO = create("shako");
+	public static final ModelLayerLocation
+		CAVALRY_POT_HELMET = create("cavalry_pot_helmet"),
+		DRAGOON_HELMET = create("dragoon_helmet"),
+		KEPI = create("kepi"),
+		PICKELHAUBE = create("pickelhaube"),
+		PITH_HELMET = create("pith_helmet"),
+		SHAKO = create("shako"),
+		SHAKO_CORD = create("shako_cord");
 
 	private static ModelLayerLocation create(String name) {
 		return create(name, "main");

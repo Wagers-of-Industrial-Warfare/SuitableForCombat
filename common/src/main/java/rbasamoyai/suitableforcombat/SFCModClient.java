@@ -31,6 +31,7 @@ import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PickelhaubeModel;
 import rbasamoyai.suitableforcombat.content.items.hats.PithHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoArmorRenderer;
+import rbasamoyai.suitableforcombat.content.items.hats.ShakoCordModel;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoItemRenderer;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoModel;
 import rbasamoyai.suitableforcombat.index.SFCItems;
@@ -118,6 +119,7 @@ public class SFCModClient {
 		cons.accept(SFCModClient::simpleColor, SFCItems.KEPI.get());
 		cons.accept(SFCModClient::simpleColor, SFCItems.PICKELHAUBE.get());
 
+		cons.accept(SFCModClient::simpleColor, SFCItems.CORD.get());
 		cons.accept(SFCModClient::simpleColor, SFCItems.HAT_BAND.get());
 	}
 
@@ -132,6 +134,7 @@ public class SFCModClient {
 		cons.accept(SFCModelLayers.PICKELHAUBE, PickelhaubeModel::createLayer);
 		cons.accept(SFCModelLayers.PITH_HELMET, PithHelmetModel::createLayer);
 		cons.accept(SFCModelLayers.SHAKO, ShakoModel::createLayer);
+		cons.accept(SFCModelLayers.SHAKO_CORD, ShakoCordModel::createLayer);
 	}
 
 	public static void registerArmorRenderer(Item item, CustomHumanoidArmorRenderer renderer) {

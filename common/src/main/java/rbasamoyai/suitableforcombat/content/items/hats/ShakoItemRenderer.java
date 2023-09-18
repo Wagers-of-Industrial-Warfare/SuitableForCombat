@@ -81,6 +81,14 @@ public class ShakoItemRenderer extends BlockEntityWithoutLevelRenderer {
 		} else if (visor.is(GILDING)) {
 			this.renderModelLists(SFCPartialModels.SHAKO_GILDED_VISOR.get(), packedLight, packedOverlay, poseStack, vcons, 1, 1, 1);
 		}
+		ItemStack cord = shako.getOrnament(stack, Ornament.CORD);
+		if (cord.is(SFCItems.CORD.get())) {
+			int i = SFCItems.CORD.get().getColor(cord);
+			float r = (float)(i >> 16 & 0xFF) / 255f;
+			float g = (float)(i >> 8 & 0xFF) / 255f;
+			float b = (float)(i & 0xFF) / 255f;
+			this.renderModelLists(SFCPartialModels.SHAKO_CORD.get(), packedLight, packedOverlay, poseStack, vcons, r, g, b);
+		}
 	}
 
 	public void renderModelLists(BakedModel pModel, int pCombinedLight, int pCombinedOverlay, PoseStack pMatrixStack,

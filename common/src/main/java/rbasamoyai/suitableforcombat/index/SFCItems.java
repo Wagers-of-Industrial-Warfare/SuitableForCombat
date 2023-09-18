@@ -46,8 +46,8 @@ public class SFCItems {
 			.tab(SuitableForCombatMod.GROUP), 1710619));
 
 	public static final Supplier<DyeableOrnamentItem>
-		HAT_BAND = register("hat_band", () -> new DyeableOrnamentItem(new Item.Properties()
-			.tab(SuitableForCombatMod.GROUP)));
+		CORD = register("cord", () -> new DyeableOrnamentItem(new Item.Properties().tab(SuitableForCombatMod.GROUP))),
+		HAT_BAND = register("hat_band", () -> new DyeableOrnamentItem(new Item.Properties().tab(SuitableForCombatMod.GROUP)));
 
 	public static final Supplier<Item>
 		GILDING = register("gilding", () -> new Item(new Item.Properties().tab(SuitableForCombatMod.GROUP)));

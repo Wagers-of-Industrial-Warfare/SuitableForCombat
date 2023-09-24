@@ -11,7 +11,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 import rbasamoyai.suitableforcombat.network.RootPacket;
 
-public class IANetworkImpl {
+public class SFCNetworkImpl {
 
 	private static final SimpleChannel NETWORK = NetworkRegistry.ChannelBuilder
 			.named(SuitableForCombatMod.resource("network"))

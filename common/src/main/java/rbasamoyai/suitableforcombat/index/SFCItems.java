@@ -7,6 +7,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -51,6 +52,10 @@ public class SFCItems {
 
 	public static final Supplier<Item>
 		GILDING = register("gilding", () -> new Item(new Item.Properties().tab(SuitableForCombatMod.GROUP)));
+
+	public static final Supplier<BlockItem>
+		UNIFORM_DECORATING_TABLE = register("uniform_decorating_table",
+			() -> new BlockItem(SFCBlocks.UNIFORM_DECORATING_TABLE.get(), new Item.Properties().tab(SuitableForCombatMod.GROUP)));
 
 	public static void register() {}
 

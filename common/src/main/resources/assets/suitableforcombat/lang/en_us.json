@@ -1,4 +1,5 @@
 {
+  "block.suitableforcombat.uniform_decorating_table": "Uniform Decorating Table",
   "item.suitableforcombat.cavalry_pot_helmet": "Cavalry Pot Helmet",
   "item.suitableforcombat.cord": "Cord",
   "item.suitableforcombat.dragoon_helmet": "Dragoon Helmet",
@@ -8,5 +9,14 @@
   "item.suitableforcombat.pickelhaube": "Pickelhaube",
   "item.suitableforcombat.pith_helmet": "Pith Helmet",
   "item.suitableforcombat.shako": "Shako",
-  "itemGroup.suitableforcombat": "Suitable For Combat"
+  "itemGroup.suitableforcombat": "Suitable For Combat",
+  "ornament.suitableforcombat.shako.upper_band": "Upper Band",
+  "ornament.suitableforcombat.shako.lower_band": "Lower Band",
+  "ornament.suitableforcombat.shako.middle_bands": "Middle Bands",
+  "ornament.suitableforcombat.shako.visor": "Visor",
+  "ornament.suitableforcombat.shako.plate": "Plate",
+  "ornament.suitableforcombat.shako.strap": "Strap",
+  "ornament.suitableforcombat.shako.roundel": "Roundel",
+  "ornament.suitableforcombat.shako.plume": "Plume",
+  "ornament.suitableforcombat.shako.cord": "Cord"
 }

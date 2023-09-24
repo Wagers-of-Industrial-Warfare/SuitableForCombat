@@ -7,7 +7,7 @@ import net.minecraft.world.entity.Entity;
 import rbasamoyai.suitableforcombat.SuitableForCombatMod;
 import rbasamoyai.suitableforcombat.network.RootPacket;
 
-public class IANetworkImpl {
+public class SFCNetworkImpl {
 
 	private static final SimpleChannel NETWORK = new SimpleChannel(SuitableForCombatMod.resource("network"));
 

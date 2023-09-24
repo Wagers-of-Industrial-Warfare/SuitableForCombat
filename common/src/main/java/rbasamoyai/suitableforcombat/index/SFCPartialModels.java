@@ -14,6 +14,7 @@ public class SFCPartialModels {
 		SHAKO_GILDED_LOWER_BAND = ornamentOverlay("shako_gilded_lower_band"),
 		SHAKO_VISOR = ornamentOverlay("shako_visor"),
 		SHAKO_GILDED_VISOR = ornamentOverlay("shako_gilded_visor"),
+		SHAKO_GILDED_STRAP = ornamentOverlay("shako_gilded_strap"),
 		SHAKO_CORD = ornamentOverlay("shako_cord");
 
 	public static void init() {}

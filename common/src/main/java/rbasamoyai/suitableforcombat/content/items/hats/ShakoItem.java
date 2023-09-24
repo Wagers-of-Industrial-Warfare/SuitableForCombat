@@ -28,6 +28,9 @@ public class ShakoItem extends ArmorItem implements SupportsOrnaments {
 		if (type == Ornament.UPPER_BAND || type == Ornament.LOWER_BAND || type == Ornament.MIDDLE_BANDS || type == Ornament.VISOR) {
 			return ornament.is(SFCItems.HAT_BAND.get()) || ornament.is(SFCItems.GILDING.get());
 		}
+		if (type == Ornament.STRAP) {
+			return ornament.is(SFCItems.GILDING.get());
+		}
 		if (type == Ornament.CORD) {
 			return ornament.is(SFCItems.CORD.get());
 		}

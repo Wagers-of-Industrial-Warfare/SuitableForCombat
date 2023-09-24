@@ -6,9 +6,9 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ForgeModelBakery;
-import rbasamoyai.suitableforcombat.SFCModClient;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import rbasamoyai.suitableforcombat.SFCModClient;
 import rbasamoyai.suitableforcombat.content.PartialModel;
 
 public class SFCModClientForge {

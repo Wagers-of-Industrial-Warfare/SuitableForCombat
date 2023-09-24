@@ -7,8 +7,11 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,14 +20,19 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import rbasamoyai.suitableforcombat.content.BasicHumanoidArmorRenderer;
 import rbasamoyai.suitableforcombat.content.CustomHumanoidArmorRenderer;
+import rbasamoyai.suitableforcombat.content.attaching.UniformDecoratingScreen;
 import rbasamoyai.suitableforcombat.content.items.hats.CavalryPotHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.DragoonHelmetModel;
 import rbasamoyai.suitableforcombat.content.items.hats.KepiModel;
@@ -35,6 +43,7 @@ import rbasamoyai.suitableforcombat.content.items.hats.ShakoCordModel;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoItemRenderer;
 import rbasamoyai.suitableforcombat.content.items.hats.ShakoModel;
 import rbasamoyai.suitableforcombat.index.SFCItems;
+import rbasamoyai.suitableforcombat.index.SFCMenuTypes;
 import rbasamoyai.suitableforcombat.index.SFCModelLayers;
 import rbasamoyai.suitableforcombat.index.SFCPartialModels;
 
@@ -50,23 +59,25 @@ public class SFCModClient {
 
 		SFCPartialModels.init();
 
+		registerMenuScreen(SFCMenuTypes.UNIFORM_DECORATION.get(), UniformDecoratingScreen::new);
+
 		registerArmorRenderer(SFCItems.CAVALRY_POT_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+			public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 				return new CavalryPotHelmetModel(bakeRoot(SFCModelLayers.CAVALRY_POT_HELMET));
 			}
 			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+			public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 				return SuitableForCombatMod.resource("textures/armor/cavalry_pot_helmet.png");
 			}
 		});
 		registerArmorRenderer(SFCItems.DRAGOON_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+			public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 				return new DragoonHelmetModel(bakeRoot(SFCModelLayers.DRAGOON_HELMET));
 			}
 			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+			public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 				String suf = "";
 				if (overlay != null) {
 					int modelData = stack.getOrCreateTag().getInt("CustomModelData");
@@ -77,31 +88,31 @@ public class SFCModClient {
 		});
 		registerArmorRenderer(SFCItems.KEPI.get(), new BasicHumanoidArmorRenderer() {
 			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+			public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 				return new PithHelmetModel(bakeRoot(SFCModelLayers.KEPI));
 			}
 			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+			public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 				return SuitableForCombatMod.resource("textures/armor/kepi%s.png".formatted(overlay == null ? "" : "_" + overlay));
 			}
 		});
 		registerArmorRenderer(SFCItems.PITH_HELMET.get(), new BasicHumanoidArmorRenderer() {
 			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+			public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 				return new PithHelmetModel(bakeRoot(SFCModelLayers.PITH_HELMET));
 			}
 			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+			public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 				return SuitableForCombatMod.resource("textures/armor/pith_helmet.png");
 			}
 		});
 		registerArmorRenderer(SFCItems.PICKELHAUBE.get(), new BasicHumanoidArmorRenderer() {
 			@Override
-			public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+			public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 				return new PickelhaubeModel(bakeRoot(SFCModelLayers.PICKELHAUBE));
 			}
 			@Override
-			public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+			public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 				String suf = "";
 				if (overlay != null) {
 					int modelData = stack.getOrCreateTag().getInt("CustomModelData");
@@ -158,5 +169,14 @@ public class SFCModClient {
 	}
 
 	@Nullable public static BlockEntityWithoutLevelRenderer getCustomItemOverlayRenderer(Item item) { return ITEM_RENDERERS.get(item); }
+
+	@ExpectPlatform
+	public static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void registerMenuScreen(MenuType<? extends M> type, ScreenConstructor<M, U> factory) {
+		throw new AssertionError();
+	}
+
+	public interface ScreenConstructor<M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> {
+		U create(M menu, Inventory inv, Component title);
+	}
 
 }

@@ -5,7 +5,11 @@ import net.minecraft.world.item.CreativeModeTab;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import rbasamoyai.suitableforcombat.index.SFCBlocks;
 import rbasamoyai.suitableforcombat.index.SFCItems;
+import rbasamoyai.suitableforcombat.index.SFCMenuTypes;
+import rbasamoyai.suitableforcombat.network.SFCNetwork;
 
 public class SuitableForCombatMod {
     public static final String MOD_ID = "suitableforcombat";
@@ -15,7 +19,11 @@ public class SuitableForCombatMod {
 	public static final CreativeModeTab GROUP = ModGroup.create();
 
     public static void init() {
+		SFCBlocks.register();
         SFCItems.register();
+		SFCMenuTypes.register();
+
+		SFCNetwork.init();
     }
 
     public static ResourceLocation resource(String path) {

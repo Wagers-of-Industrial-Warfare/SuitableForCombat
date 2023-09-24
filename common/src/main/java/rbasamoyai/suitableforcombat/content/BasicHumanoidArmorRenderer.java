@@ -26,8 +26,8 @@ public abstract class BasicHumanoidArmorRenderer implements CustomHumanoidArmorR
 	private static final float RECIP_OF_255 = 1 / 255f;
 
 	@Override
-	public void render(ItemStack itemStack, PoseStack poseStack, MultiBufferSource buffers, LivingEntity entity,
-					   EquipmentSlot slot, int light, HumanoidModel<?> parentModel) {
+	public void render(ItemStack itemStack, PoseStack poseStack, MultiBufferSource buffers, @Nullable LivingEntity entity,
+					   EquipmentSlot slot, int light, @Nullable HumanoidModel<?> parentModel) {
 		if (!(itemStack.getItem() instanceof ArmorItem armorItem) || armorItem.getSlot() != slot) return;
 		List<SubArmorLayer> sublayers = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public abstract class BasicHumanoidArmorRenderer implements CustomHumanoidArmorR
 
 		for (SubArmorLayer sl : sublayers) {
 			HumanoidModel<?> layerModel = sl.model();
-			copyProperties(parentModel, layerModel);
+			if (parentModel != null) copyProperties(parentModel, layerModel);
 			this.setPartVisibility(layerModel, slot);
 			if (sl.hasColor()) {
 				int i = sl.color();
@@ -94,10 +94,10 @@ public abstract class BasicHumanoidArmorRenderer implements CustomHumanoidArmorR
 		}
 	}
 
-	public abstract HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot);
-	public abstract ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay);
+	public abstract HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot);
+	public abstract ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay);
 
-	protected void addOrnaments(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot, List<SubArmorLayer> list) {}
+	protected void addOrnaments(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot, List<SubArmorLayer> list) {}
 
 	public record SubArmorLayer(HumanoidModel<?> model, ResourceLocation texture, boolean hasColor, int color, @Nullable ResourceLocation overlay) {
 	}

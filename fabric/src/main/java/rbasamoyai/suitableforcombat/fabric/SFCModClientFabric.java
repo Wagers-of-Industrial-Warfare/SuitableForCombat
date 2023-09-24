@@ -13,12 +13,14 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.ResourceLocation;
 import rbasamoyai.suitableforcombat.SFCModClient;
 import rbasamoyai.suitableforcombat.content.PartialModel;
+import rbasamoyai.suitableforcombat.network.fabric.SFCNetworkImpl;
 
 public class SFCModClientFabric implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
 		SFCModClient.clientInit();
+		SFCNetworkImpl.clientInit();
 		SFCModClient.registerLayers((loc, sup) -> EntityModelLayerRegistry.registerModelLayer(loc, sup::get));
 
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, cons) -> PartialModel.onModelRegistry(cons));

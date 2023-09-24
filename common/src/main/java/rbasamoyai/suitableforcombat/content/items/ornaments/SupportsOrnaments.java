@@ -18,7 +18,7 @@ public interface SupportsOrnaments {
 			tag.put("ArmorOrnaments", new CompoundTag());
 		}
 		CompoundTag armorOrnaments = tag.getCompound("ArmorOrnaments");
-		armorOrnaments.put(type.getSerializedName(), ornament.save(new CompoundTag()));
+		armorOrnaments.put(type.getSerializedName(), ornament.isEmpty() ? new CompoundTag() : ornament.save(new CompoundTag()));
 		tag.put("ArmorOrnaments", armorOrnaments);
 	}
 

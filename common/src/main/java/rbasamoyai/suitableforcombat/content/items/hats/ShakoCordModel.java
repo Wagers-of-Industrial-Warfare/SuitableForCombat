@@ -16,19 +16,20 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
+
 public class ShakoCordModel extends BasicHatModel {
 
-	private final ModelPart helmet;
 	private final ModelPart tassel;
 	private final ModelPart smallTassel;
 
-	private final LivingEntity entity;
+	@Nullable private final LivingEntity entity;
 
-	public ShakoCordModel(ModelPart root, LivingEntity entity) {
+	public ShakoCordModel(ModelPart root, @Nullable LivingEntity entity) {
 		super(root);
-		this.helmet = this.head.getChild("helmet");
-		this.tassel = this.helmet.getChild("tassel");
-		this.smallTassel = this.helmet.getChild("small_tassel");
+		ModelPart helmet = this.head.getChild("helmet");
+		this.tassel = helmet.getChild("tassel");
+		this.smallTassel = helmet.getChild("small_tassel");
 		this.entity = entity;
 	}
 
@@ -53,10 +54,11 @@ public class ShakoCordModel extends BasicHatModel {
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay,
 							   float red, float green, float blue, float alpha) {
 		float f = this.head.xRot;
-		float yaw = Mth.lerp(Minecraft.getInstance().getFrameTime(), Mth.wrapDegrees(this.entity.yHeadRotO), Mth.wrapDegrees(this.entity.yHeadRot));
+		float yaw = this.entity == null ? 0 :
+			Mth.lerp(Minecraft.getInstance().getFrameTime(), Mth.wrapDegrees(this.entity.yHeadRotO), Mth.wrapDegrees(this.entity.yHeadRot));
 		yaw *= Mth.DEG_TO_RAD;
 		Vec3 forward = new Vec3(-Mth.sin(yaw), 0, Mth.cos(yaw));
-		Vec3 vel = this.entity.getDeltaMovement();
+		Vec3 vel = this.entity == null ? Vec3.ZERO : this.entity.getDeltaMovement();
 		float dv = (float) forward.dot(vel.normalize()) * (float) vel.horizontalDistance();
 		f -= Mth.clamp(dv * 5, -45 * Mth.DEG_TO_RAD, 45 * Mth.DEG_TO_RAD);
 		this.tassel.xRot = -f;

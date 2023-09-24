@@ -21,17 +21,17 @@ import rbasamoyai.suitableforcombat.index.SFCModelLayers;
 public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 
 	@Override
-	public HumanoidModel<?> getModel(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot) {
+	public HumanoidModel<?> getModel(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot) {
 		return new ShakoModel(SFCModClient.bakeRoot(SFCModelLayers.SHAKO));
 	}
 
 	@Override
-	public ResourceLocation getArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
+	public ResourceLocation getArmorResource(@Nullable LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String overlay) {
 		return SuitableForCombatMod.resource("textures/armor/shako.png");
 	}
 
 	@Override
-	protected void addOrnaments(ItemStack itemStack, LivingEntity entity, EquipmentSlot slot, List<SubArmorLayer> list) {
+	protected void addOrnaments(ItemStack itemStack, @Nullable LivingEntity entity, EquipmentSlot slot, List<SubArmorLayer> list) {
 		super.addOrnaments(itemStack, entity, slot, list);
 		if (!(itemStack.getItem() instanceof ShakoItem shako)) return;
 

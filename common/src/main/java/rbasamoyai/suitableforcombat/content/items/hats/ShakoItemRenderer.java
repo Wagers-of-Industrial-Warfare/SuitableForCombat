@@ -89,6 +89,10 @@ public class ShakoItemRenderer extends BlockEntityWithoutLevelRenderer {
 			float b = (float)(i & 0xFF) / 255f;
 			this.renderModelLists(SFCPartialModels.SHAKO_CORD.get(), packedLight, packedOverlay, poseStack, vcons, r, g, b);
 		}
+		ItemStack strap = shako.getOrnament(stack, Ornament.STRAP);
+		if (strap.is(GILDING)) {
+			this.renderModelLists(SFCPartialModels.SHAKO_GILDED_STRAP.get(), packedLight, packedOverlay, poseStack, vcons, 1, 1, 1);
+		}
 	}
 
 	public void renderModelLists(BakedModel pModel, int pCombinedLight, int pCombinedOverlay, PoseStack pMatrixStack,

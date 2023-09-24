@@ -109,6 +109,13 @@ public class ShakoArmorRenderer extends BasicHumanoidArmorRenderer {
 				i,
 				SuitableForCombatMod.resource("textures/armor/ornament_overlays/no_overlay.png")));
 		}
+		ItemStack strap = shako.getOrnament(itemStack, Ornament.STRAP);
+		if (strap.is(GILDING)) {
+			list.add(new SubArmorLayer(
+				new ShakoModel(SFCModClient.bakeRoot(SFCModelLayers.SHAKO)),
+				SuitableForCombatMod.resource("textures/armor/ornament_overlays/shako_gilded_strap.png"),
+				false, 0, null));
+		}
 	}
 
 }
